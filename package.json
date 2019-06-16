@@ -1,0 +1,33 @@
+{
+  "name": "hexo-reponsive-youtube",
+  "version": "0.0.1",
+  "description": "Hexo tag plugin to embed a Youtube video that auto resizes with your responsive layout",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quocvu/hexo-reponsive-youtube.git"
+  },
+  "keywords": [
+    "youtube",
+    "embed",
+    "plugin",
+    "hexo",
+    "tag",
+    "tag",
+    "plugin",
+    "responsive",
+    "resize",
+    "layout",
+    "auto",
+    "video"
+  ],
+  "author": "Quoc Vu <darthvu@gmail.com> (https://github.com/quocvu)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/quocvu/hexo-reponsive-youtube/issues"
+  },
+  "homepage": "https://github.com/quocvu/hexo-reponsive-youtube#readme"
+}
