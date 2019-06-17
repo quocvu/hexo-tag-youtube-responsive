@@ -1,4 +1,6 @@
 function youtube(args) {
+  const id = args[0];
+
   const css =
 `<style>.embed-container {
   position: relative;
@@ -18,8 +20,9 @@ function youtube(args) {
 
   const html =
 `<div class='embed-container'>
-  <iframe src='https://www.youtube.com/embed/${args[0]}' frameborder='0' allowfullscreen></iframe>
+  <iframe src='https://www.youtube.com/embed/${id}' frameborder='0' allowfullscreen></iframe>
 </div>`;
+
 
   return `${css}\n\n${html}`;
 }
