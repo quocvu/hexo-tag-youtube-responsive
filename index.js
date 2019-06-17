@@ -1,5 +1,25 @@
 function youtube(args) {
-  const id = args[0];
+  const mediaType = args[0];
+  const id = args[1];
+  let action;
+
+  switch (mediaType) {
+    case 'video':
+      action = '/' + id;
+      break;
+    case 'playlist':
+      action = '?listType=playlist&list=' + id;
+      break;
+    case 'user':
+      action = '?listType=user_uploads&list=' + id;
+      break;
+    case 'search':
+      action = '?listType=search&list=' + id;
+      break;
+    default:
+      console.error('Unable to render Youtube', mediaType, id);
+      break;
+  };
 
   const css =
 `<style>.embed-container {
@@ -19,8 +39,8 @@ function youtube(args) {
 </style>`;
 
   const html =
-`<div class='embed-container'>
-  <iframe src='https://www.youtube.com/embed/${id}' frameborder='0' allowfullscreen></iframe>
+`<div class="embed-container">
+  <iframe src="https://www.youtube.com/embed${action}" frameborder="0" allowfullscreen></iframe>
 </div>`;
 
 

@@ -1,7 +1,7 @@
 {
   "name": "hexo-tag-youtube-responsive",
-  "version": "0.1.0",
-  "description": "Hexo tag plugin to embed a Youtube video that auto resizes with your responsive layout",
+  "version": "0.2.0",
+  "description": "Hexo tag plugin to embed a Youtube widget that auto resizes with your responsive layout",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,7 +22,9 @@
     "resize",
     "layout",
     "auto",
-    "video"
+    "video",
+    "full",
+    "customization"
   ],
   "author": "Quoc Vu <darthvu@gmail.com> (https://github.com/quocvu)",
   "license": "MIT",
