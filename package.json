@@ -4,7 +4,7 @@
   "description": "Hexo tag plugin to embed a Youtube widget that auto resizes with your responsive layout",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test mocha test"
   },
   "repository": {
     "type": "git",
@@ -31,5 +31,14 @@
   "bugs": {
     "url": "https://github.com/quocvu/hexo-tag-youtube-responsive/issues"
   },
-  "homepage": "https://github.com/quocvu/hexo-tag-youtube-responsive#readme"
+  "homepage": "https://github.com/quocvu/hexo-tag-youtube-responsive#readme",
+  "devDependencies": {
+    "mocha": "^6.1.4",
+    "rewire": "^4.0.1",
+    "should": "^13.2.3",
+    "sinon": "^7.3.2"
+  },
+  "dependencies": {
+    "js-yaml": "^3.13.1"
+  }
 }
