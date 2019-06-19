@@ -3,9 +3,9 @@ const should = require('should');
 
 const tag = rewire('../index');
 
-describe('embed', () => {
-  const getUrl = tag.__get__('getUrl');
+const getUrl = tag.__get__('getUrl');
 
+describe('getUrl', () => {
   it('should embed a video', () => {
     const url = getUrl('video', 12345);
     url.toString().should.be.equal('https://www.youtube.com/embed/12345');
@@ -24,11 +24,5 @@ describe('embed', () => {
   it('should embed search result', () => {
     const url = getUrl('search', 12345);
     url.toString().should.be.equal('https://www.youtube.com/embed?listType=search&list=12345');
-  });
-
-  it('should wrap with correct <div>', () => {
-    const getHtml = tag.__get__('getHtml');
-    const html = getHtml('video', 12345);
-    html.should.be.equal('<div class="embed-container"><iframe src="https://www.youtube.com/embed/12345" frameborder="0" allowfullscreen></iframe></div>');
   });
 });

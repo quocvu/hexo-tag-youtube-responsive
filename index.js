@@ -1,3 +1,5 @@
+const yaml = require('js-yaml');
+
 if (process.env.NODE_ENV != 'test') {
   hexo.extend.tag.register('youtuber', youtube);
 }
@@ -7,6 +9,23 @@ function youtube(args) {
   const id = args[1];
 
   return `${getCss()}\n\n${getHtml(mediaType, id)}`;
+}
+
+const getParams = (args, content) => {
+  const params;
+
+  if (args.length > 0) params['mediaType'] = args[0];
+  if (args.length > 1) params['id'] = args[1];
+
+  const validParams = [];
+  const contentParams = yaml.load(content);
+  Object.keys(contentParams).forEach(k => {
+    if (validParams.indexOf(k) >= 0) {
+      params[k] = contentParams[k];
+    }
+  });
+
+  return params;
 }
 
 const getUrl = (mediaType, id) => {
