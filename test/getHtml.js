@@ -2,7 +2,7 @@ const rewire = require('rewire');
 const should = require('should');
 
 const tag = rewire('../index');
-
+/*
 describe('getHtml()', () => {
   const getHtml = tag.__get__('getHtml');
 
@@ -14,17 +14,37 @@ describe('getHtml()', () => {
     html.should.be.equal('<div class="embed-container">--</div>');
   });
 });
-
+*/
 
 describe('getIframe()', () => {
   const getIframe = tag.__get__('getIframe');
+  tag.__set__('getUrl', () => {
+    return '--';
+  });
 
-  it('should wrap with correct <div>', () => {
-    tag.__set__('getUrl', () => {
-      return '--';
-    });
+  it('should have zero frameborder and allowfullscreen by default', () => {
     const html = getIframe({ type: 'video', id: 12345 });
-    html.should.be.equal('<iframe src="--" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>');
+    html.should.be.equal('<iframe src="--" allowfullscreen frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>');
+  });
+
+  it('should have frameborder of 20', () => {
+    const html = getIframe({ type: 'video', id: 12345, frameborder: 20 });
+    html.should.be.equal('<iframe src="--" allowfullscreen frameborder="20" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>');
+  });
+
+  it('should have allowfullscreen', () => {
+    const html = getIframe({ type: 'video', id: 12345, allowfullscreen: 'T' });
+    html.should.be.equal('<iframe src="--" allowfullscreen frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>');
+  });
+
+  it('should not have allowfullscreen', () => {
+    const html = getIframe({ type: 'video', id: 12345, allowfullscreen: 0 });
+    html.should.be.equal('<iframe src="--" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>');
+  });
+
+  it('should have height and width', () => {
+    const html = getIframe({ type: 'video', id: 12345, height: 100, width: 200 });
+    html.should.be.equal('<iframe src="--" allowfullscreen frameborder="0" height="100" width="200" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>');
   });
 });
 
@@ -44,6 +64,5 @@ describe('getParams()', () => {
     params.id.should.be.equal(123);
     params.autoplay.should.be.equal(1);
     params.frameborder.should.be.equal(3);
-
   })
 });

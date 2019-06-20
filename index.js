@@ -1,4 +1,5 @@
 const yaml = require('js-yaml');
+const _ = require('lodash');
 
 if (process.env.NODE_ENV != 'test') {
   hexo.extend.tag.register('youtuber', youtube);
@@ -7,17 +8,32 @@ if (process.env.NODE_ENV != 'test') {
 function youtube(args) {
   const params = getParams(args, context);
 
-  return `${getCss()}\n\n${getHtml(params.type, params.id)}`;
+  if (_.has(params, 'height') || _.has(params, 'width')) {
+    // by default it is responsive unless dimension is specified
+    return getIframe(params);
+
+  }
+  return `${getCss()}\n\n<div class="embed-container">${getIframe(params)}</div>`;
 }
 
 function isFalsy(value) {
-  const v = value.toLowerCase();
-  if (v === false || v === 'false' || v === 'f' || v === 'no' || v === 'n' || v === 0) break;
+  const v = _.isString(value) ? value.toLowerCase() : value;
+  return v === false || v === 'false' || v === 'f' || v === 'no' || v === 'n' || v === '0' || v === 0;
 }
 
 function isTruthy(value) {
-  const v = value.toLowerCase();
-  if (v === true || v === 'true' || v === 't' || v === 'yes' || v === 'y' || v === 1) break;
+  const v = _.isString(value) ? value.toLowerCase() : value;
+  return v === true || v === 'true' || v === 't' || v === 'yes' || v === 'y' || v === '1' || v === 1;
+}
+
+function isParamFalsy(params, field) {
+  if (!_.has(params, field)) return false;
+  return isFalsy(params[field]);
+}
+
+function isParamTruthy(params, field) {
+  if (!_.has(params, field)) return false;
+  return isTruthy(params[field]);
 }
 
 const getParams = (args, content) => {
@@ -46,7 +62,9 @@ const getParams = (args, content) => {
     'origin',
     'playlist',
     'playsinline',
+    'privacy_mode',
     'rel',
+    'showinfo',
     'start',
     'widget_referrer',
     'width',
@@ -63,33 +81,67 @@ const getParams = (args, content) => {
 }
 
 const getUrl = (params) => {
+  const url = new URL(_.has(params, 'privacy_mode') && isTruthy(params.privacy_mode) ?
+    'https://www.youtube-nocookie.com' : 'https://www.youtube.com');
+  const urlParams = new URLSearchParams();
+
   if (params.type === 'video') {
-    return new URL('https://www.youtube.com/embed/' + params.id);
+    url.pathname = `/embed/${params.id}`;
+  } else {
+    const listTypes = { playlist: 'playlist', user: 'user_uploads', search: 'search' };
+
+    if (Object.keys(listTypes).indexOf(params.type) >= 0) {
+      urlParams.set('listType', listTypes[params.type]);
+      urlParams.set('list', params.id);
+      url.pathname = '/embed';
+    } else {
+      console.error('Unable to render Youtube', type, id);
+      return null;
+    }
   }
 
-  const listTypes = {
-    playlist: 'playlist',
-    user: 'user_uploads',
-    search: 'search',
-  };
+  const validParams = [
+    'autoplay',
+    'cc_lang_pref',
+    'cc_load_policy',
+    'color',
+    'controls',
+    'disablekb',
+    'enablejsapi',
+    'end',
+    'fs',
+    'hl',
+    'iv_load_policy',
+    'loop',
+    'modestbranding',
+    'origin',
+    'playlist',
+    'playsinline',
+    'rel',
+    'showinfo',
+    'start',
+    'widget_referrer',
+  ];
 
-  if (Object.keys(listTypes).indexOf(params.type) >= 0) {
-    const urlParams = new URLSearchParams({ listType: listTypes[params.type], list: params.id });
-    const url = new URL('https://www.youtube.com/embed');
-    url.search = urlParams.toString();
-    return url;
-  }
+  validParams.forEach(p => {
+    if (_.has(params, p)) {
+      urlParams.set(p, params[p]);
+    }
+  })
 
-  console.error('Unable to render Youtube', type, id);
-  return null;
+  url.search = urlParams.toString();
+  return url;
 }
 
 const getIframe = (params) => {
-  return `<iframe src="${getUrl(params.type, params.id).toString()}" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>`;
-}
+  let options = [];
 
-const getHtml = (params) => {
-  return `<div class="embed-container">${getIframe(params.type, params.id).toString()}</div>`;
+  if (!_.has(params, 'allowfullscreen') || isTruthy(params.allowfullscreen)) options.push(`allowfullscreen`);
+  options.push(`frameborder="${_.has(params, 'frameborder') ? params.frameborder : 0}"`);
+  if (_.has(params, 'height')) options.push(`height="${params.height}"`);
+  if (_.has(params, 'width')) options.push(`width="${params.width}"`);
+
+  return `<iframe src="${getUrl(params).toString()}" ${options.join(' ')} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>`;
 }
 
 const getCss = () => {
