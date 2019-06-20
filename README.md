@@ -1,4 +1,5 @@
-[![NPM Downloads](https://img.shields.io/npm/dt/hexo-tag-youtube-responsive.svg?style=for-the-badge)](https://www.npmjs.com/package/hexo-tag-youtube-responsive)
+[![Build Status](http://img.shields.io/travis/quocvu/hexo-tag-youtube-responsive.svg?style=for-the-badge)](https://travis-ci.org/quocvu/hexo-tag-youtube-responsive)
+[![Coverage Status](https://img.shields.io/coveralls/quocvu/hexo-tag-youtube-responsive.svg?style=for-the-badge)](https://coveralls.io/github/quocvu/hexo-tag-youtube-responsive)[![NPM Downloads](https://img.shields.io/npm/dt/hexo-tag-youtube-responsive.svg?style=for-the-badge)](https://www.npmjs.com/package/hexo-tag-youtube-responsive)
 [![NPM Version](https://img.shields.io/npm/v/hexo-tag-youtube-responsive.svg?style=for-the-badge)](https://www.npmjs.com/package/hexo-tag-youtube-responsive)
 [![Dependencies](https://img.shields.io/david/quocvu/hexo-tag-youtube-responsive.svg?style=for-the-badge)](https://david-dm.org/quocvu/hexo-tag-youtube-responsive)
 [![License](https://img.shields.io/github/license/quocvu/hexo-tag-youtube-responsive.svg?style=for-the-badge)](https://github.com/quocvu/hexo-tag-youtube-responsive/blob/master/LICENSE)
