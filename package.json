@@ -1,6 +1,6 @@
 {
   "name": "hexo-tag-youtube-responsive",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Hexo tag plugin to embed a Youtube player that auto resizes with your responsive layout",
   "main": "index.js",
   "scripts": {
