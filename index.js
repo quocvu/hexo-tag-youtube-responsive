@@ -1,18 +1,50 @@
 const yaml = require('js-yaml');
 const _ = require('lodash');
 
+const validParams = [
+  'allowfullscreen',
+  'autoplay',
+  'cc_lang_pref',
+  'cc_load_policy',
+  'color',
+  'controls',
+  'disablekb',
+  'enablejsapi',
+  'end',
+  'frameborder',
+  'fs',
+  'height',
+  'hl',
+  'iv_load_policy',
+  'loop',
+  'modestbranding',
+  'origin',
+  'playlist',
+  'playsinline',
+  'privacy_mode',
+  'rel',
+  'showinfo',
+  'start',
+  'widget_referrer',
+  'width',
+];
+
 if (process.env.NODE_ENV != 'test') {
   hexo.extend.tag.register('youtuber', youtube);
 }
 
-function youtube(args) {
-  const params = getParams(args, context);
+function youtube(args, context) {
+  const params = _.merge(getDefault(hexo.config.youtuber), _.merge(getParams(context), getArgs(args)));
+
+  if (!_.has(params, 'type') || !_.has(params, 'id')) {
+    return 'Must have the 2 required arguments such as {% youtuber video VIDEO_ID %}';
+  }
 
   if (_.has(params, 'height') || _.has(params, 'width')) {
     // by default it is responsive unless dimension is specified
     return getIframe(params);
-
   }
+
   return `${getCss()}\n\n<div class="embed-container">${getIframe(params)}</div>`;
 }
 
@@ -36,39 +68,29 @@ function isParamTruthy(params, field) {
   return isTruthy(params[field]);
 }
 
-const getParams = (args, content) => {
+const getArgs = (args) => {
   const params = {};
 
   if (args.length > 0) params['type'] = args[0];
   if (args.length > 1) params['id'] = args[1];
 
-  const validParams = [
-    'allowfullscreen',
-    'autoplay',
-    'cc_lang_pref',
-    'cc_load_policy',
-    'color',
-    'controls',
-    'disablekb',
-    'enablejsapi',
-    'end',
-    'frameborder',
-    'fs',
-    'height',
-    'hl',
-    'iv_load_policy',
-    'loop',
-    'modestbranding',
-    'origin',
-    'playlist',
-    'playsinline',
-    'privacy_mode',
-    'rel',
-    'showinfo',
-    'start',
-    'widget_referrer',
-    'width',
-  ];
+  return params;
+}
+
+const getDefault = (config) => {
+  const params = {};
+
+  Object.keys(config).forEach(k => {
+    if (validParams.indexOf(k) >= 0) {
+      params[k] = config[k];
+    }
+  });
+
+  return params;
+}
+
+const getParams = (content) => {
+  const params = {};
 
   const contentParams = yaml.load(content);
   Object.keys(contentParams).forEach(k => {

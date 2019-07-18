@@ -2,19 +2,6 @@ const rewire = require('rewire');
 const should = require('should');
 
 const tag = rewire('../index');
-/*
-describe('getHtml()', () => {
-  const getHtml = tag.__get__('getHtml');
-
-  it('should wrap with correct <div>', () => {
-    tag.__set__('getIframe', () => {
-      return '--';
-    });
-    const html = getHtml({ type: 'video', id: 12345 });
-    html.should.be.equal('<div class="embed-container">--</div>');
-  });
-});
-*/
 
 describe('getIframe()', () => {
   const getIframe = tag.__get__('getIframe');
@@ -49,19 +36,57 @@ describe('getIframe()', () => {
 });
 
 
-describe('getParams()', () => {
-  const getParams = tag.__get__('getParams');
+describe('getArgs()', () => {
+  const getArgs = tag.__get__('getArgs');
+
+  it('should not get any argument', () => {
+    const params = getArgs([]);
+    Object.keys(params).length.should.be.equal(0);
+  });
+
+  it('should get the type video', () => {
+    const params = getArgs(['video']);
+    Object.keys(params).length.should.be.equal(1);
+    params.type.should.be.equal('video');
+  });
+
+  it('should the type video and its ID', () => {
+    const params = getArgs(['video', 123]);
+    Object.keys(params).length.should.be.equal(2);
+    params.type.should.be.equal('video');
+    params.id.should.be.equal(123);
+  })
+});
+
+
+describe('getDefault()', () => {
+  const getDefault = tag.__get__('getDefault');
 
   it('should discard invalid params', () => {
-    const params = getParams([], "invalid: 3");
+    const params = getDefault({ invalid: 3 });
     Object.keys(params).length.should.be.equal(0);
   });
 
   it('should retain 4 params', () => {
-    const params = getParams(['video', 123], "autoplay: 1\nframeborder: 3");
-    Object.keys(params).length.should.be.equal(4);
-    params.type.should.be.equal('video');
-    params.id.should.be.equal(123);
+    const params = getDefault({ autoplay: 1, frameborder: 3 });
+    Object.keys(params).length.should.be.equal(2);
+    params.autoplay.should.be.equal(1);
+    params.frameborder.should.be.equal(3);
+  })
+});
+
+
+describe('getParams()', () => {
+  const getParams = tag.__get__('getParams');
+
+  it('should discard invalid params', () => {
+    const params = getParams("invalid: 3");
+    Object.keys(params).length.should.be.equal(0);
+  });
+
+  it('should retain 4 params', () => {
+    const params = getParams("autoplay: 1\nframeborder: 3");
+    Object.keys(params).length.should.be.equal(2);
     params.autoplay.should.be.equal(1);
     params.frameborder.should.be.equal(3);
   })
