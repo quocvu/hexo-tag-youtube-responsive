@@ -114,6 +114,16 @@ For the remaining:
 * `privacy_mode` allows to play video without being tracked by google (no cookies used)
 * `allowfullscreen` let the user switch on the full screen mode if desired
 
+### Defaults
+
+The parameters above can be specified globally with default values via `_config.yml` file.
+
+```
+youtuber:
+  allowfullscreen: yes,
+  autoplay: 1
+```
+
 
 [npm-url]: https://npmjs.org/package/hexo-tag-youtube-responsive
 [Hexo]: https://hexo.io/
