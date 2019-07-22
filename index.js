@@ -30,7 +30,7 @@ const validParams = [
 ];
 
 if (process.env.NODE_ENV != 'test') {
-  hexo.extend.tag.register('youtuber', youtube);
+  hexo.extend.tag.register('youtuber', youtube, { ends: true });
 }
 
 function youtube(args, context) {
@@ -80,11 +80,15 @@ const getArgs = (args) => {
 const getDefault = (config) => {
   const params = {};
 
-  Object.keys(config).forEach(k => {
-    if (validParams.indexOf(k) >= 0) {
-      params[k] = config[k];
-    }
-  });
+  console.log('=====', config, '-----');
+
+  if (config) {
+    Object.keys(config).forEach(k => {
+      if (validParams.indexOf(k) >= 0) {
+        params[k] = config[k];
+      }
+    });
+  }
 
   return params;
 }
@@ -92,12 +96,14 @@ const getDefault = (config) => {
 const getParams = (content) => {
   const params = {};
 
-  const contentParams = yaml.load(content);
-  Object.keys(contentParams).forEach(k => {
-    if (validParams.indexOf(k) >= 0) {
-      params[k] = contentParams[k];
-    }
-  });
+  if (content && content.trim()) {
+    const contentParams = yaml.load(content);
+    Object.keys(contentParams).forEach(k => {
+      if (validParams.indexOf(k) >= 0) {
+        params[k] = contentParams[k];
+      }
+    });
+  }
 
   return params;
 }
