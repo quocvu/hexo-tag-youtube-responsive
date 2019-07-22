@@ -80,8 +80,6 @@ const getArgs = (args) => {
 const getDefault = (config) => {
   const params = {};
 
-  console.log('=====', config, '-----');
-
   if (config) {
     Object.keys(config).forEach(k => {
       if (validParams.indexOf(k) >= 0) {
