@@ -20,24 +20,28 @@ Install using [npm][npm-url].
 
 ```
   {% youtuber video VIDEO_ID %}
+  {% endyoutuber %}
 ```
 
 For example
 
 ```
   {% youtuber video I07XMi7MHd4 %}
+  {% endyoutuber %}
 ```
 
 ### Embed a playlist
 
 ```
   {% youtuber playlist PLAYLIST_ID %}
+  {% endyoutuber %}
 ```
 
 For example
 
 ```
   {% youtuber playlist PLC77007E23FF423C6 %}
+  {% endyoutuber %}
 ```
 
 Note that you need to prepend the playlist ID with the letters PL as shown above
@@ -46,13 +50,17 @@ Note that you need to prepend the playlist ID with the letters PL as shown above
 
 ```
   {% youtuber search QUERY_KEYWORDS %}
+  {% endyoutuber %}
 ```
 
 For example
 
 ```
   {% youtuber search hexo %}
+  {% endyoutuber %}
+
   {% youtuber search hexo+tag+plugin %}
+  {% endyoutuber %}
 ```
 
 If your search has more than one keyword, use `+` to concatenate them together as shown above
@@ -61,12 +69,14 @@ If your search has more than one keyword, use `+` to concatenate them together a
 
 ```
   {% youtuber user USERNAME %}
+  {% endyoutuber %}
 ```
 
 For example
 
 ```
   {% youtuber search daddybear %}
+  {% endyoutuber %}
 ```
 
 Note that you must supply the user name and not the channel ID
