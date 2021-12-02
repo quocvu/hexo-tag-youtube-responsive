@@ -75,7 +75,7 @@ If your search has more than one keyword, use `+` to concatenate them together a
 For example
 
 ```
-  {% youtuber search daddybear %}
+  {% youtuber user daddybear %}
   {% endyoutuber %}
 ```
 
