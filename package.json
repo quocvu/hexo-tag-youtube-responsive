@@ -4,7 +4,7 @@
   "description": "Hexo tag plugin to embed a Youtube player that auto resizes with your responsive layout",
   "main": "index.js",
   "scripts": {
-    "cover": "NODE_ENV=test istanbul cover _mocha",
+    "cover": "NODE_ENV=test istanbul cover _mocha --report lcovonly",
     "coveralls": "npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
     "test": "NODE_ENV=test mocha"
   },

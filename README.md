@@ -1,4 +1,4 @@
-[![Build Status](http://img.shields.io/travis/quocvu/hexo-tag-youtube-responsive.svg?style=for-the-badge)](https://travis-ci.org/quocvu/hexo-tag-youtube-responsive)
+[![Build Status](http://img.shields.io/github/workflow/status/quocvu/hexo-tag-youtube-responsiv?style=for-the-badge)](https://github.com/quocvu/hexo-tag-youtube-responsive/actions/workflows/NodeJS-CI.yml)
 [![Coverage Status](https://img.shields.io/coveralls/quocvu/hexo-tag-youtube-responsive.svg?style=for-the-badge)](https://coveralls.io/github/quocvu/hexo-tag-youtube-responsive)[![NPM Downloads](https://img.shields.io/npm/dt/hexo-tag-youtube-responsive.svg?style=for-the-badge)](https://www.npmjs.com/package/hexo-tag-youtube-responsive)
 [![NPM Version](https://img.shields.io/npm/v/hexo-tag-youtube-responsive.svg?style=for-the-badge)](https://www.npmjs.com/package/hexo-tag-youtube-responsive)
 [![Dependencies](https://img.shields.io/david/quocvu/hexo-tag-youtube-responsive.svg?style=for-the-badge)](https://david-dm.org/quocvu/hexo-tag-youtube-responsive)
@@ -119,10 +119,10 @@ The majority of the parameters can be found in [Youtube documentation].
 
 For the remaining:
 
-* If `width` and `height` are given as dimension of the player, it will cancel the auto-resize feature of this widget
-* `frameborder` allows to specify the edge thickness around the player
-* `privacy_mode` allows to play video without being tracked by google (no cookies used)
-* `allowfullscreen` let the user switch on the full screen mode if desired
+- If `width` and `height` are given as dimension of the player, it will cancel the auto-resize feature of this widget
+- `frameborder` allows to specify the edge thickness around the player
+- `privacy_mode` allows to play video without being tracked by google (no cookies used)
+- `allowfullscreen` let the user switch on the full screen mode if desired
 
 ### Defaults
 
@@ -134,8 +134,7 @@ youtuber:
   autoplay: 1
 ```
 
-
 [npm-url]: https://npmjs.org/package/hexo-tag-youtube-responsive
-[Hexo]: https://hexo.io/
-[Youtube]: https://youtube.com/
-[Youtube documentation]: https://developers.google.com/youtube/player_parameters
+[hexo]: https://hexo.io/
+[youtube]: https://youtube.com/
+[youtube documentation]: https://developers.google.com/youtube/player_parameters
