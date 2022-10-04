@@ -29,10 +29,6 @@ const validParams = [
   'width',
 ];
 
-if (process.env.NODE_ENV != 'test') {
-  hexo.extend.tag.register('youtuber', youtube, { ends: true });
-}
-
 function youtube(args, context) {
   const params = _.merge(getDefault(hexo.config.youtuber), _.merge(getParams(context), getArgs(args)));
 
@@ -187,3 +183,16 @@ const getCss = () => {
   }
   </style>`;
 }
+
+if (process.env.NODE_ENV != 'test') {
+  hexo.extend.tag.register('youtuber', youtube, { ends: true });
+} else { 
+  module.exports = {
+    getUrl, 
+    getParams,
+    getArgs,
+    getDefault,
+    getIframe, 
+  }
+}
+
